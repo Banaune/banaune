@@ -171,6 +171,14 @@
           </div>
         </div>
       </section>
+      <section class="movie-recommendations">
+        <div class="container">
+          <h2 class="h2 section-title">Recommended Movies</h2>
+          <ul class="movies-list" id="recommended-movies-list">
+            <!-- Recommendations will be populated here dynamically -->
+          </ul>
+        </div>
+      </section>
     </article>
   </main>
  <!-- 
@@ -195,20 +203,17 @@
             </li>
 
             <li>
-              <a href="#" class="footer-link">Movie</a>
+              <a href="#" class="footer-link">Movies</a>
             </li>
 
             <li>
-              <a href="#" class="footer-link">TV Show</a>
+              <a href="#" class="footer-link">TV Shows</a>
             </li>
 
             <li>
               <a href="#" class="footer-link">Web Series</a>
             </li>
 
-            <li>
-              <a href="#" class="footer-link">Pricing</a>
-            </li>
 
           </ul>
 
@@ -221,7 +226,7 @@
           <ul class="quicklink-list">
 
             <li>
-              <a href="#" class="quicklink-link">Faq</a>
+              <a href="#" class="quicklink-link">FAQs</a>
             </li>
 
             <li>
@@ -278,7 +283,7 @@
           &copy; 2022 <a href="#">Banaune</a>. All Rights Reserved
         </p>
 
-        <img src="./assets/images/footer-bottom-img.png" alt="Online banking companies logo" class="footer-bottom-img">
+        <!-- <img src="./assets/images/footer-bottom-img.png" alt="Online banking companies logo" class="footer-bottom-img"> -->
 
       </div>
     </div>
@@ -297,8 +302,9 @@
     const movieId = urlParams.get('id');
     if (!movieId) {
       document.getElementById("movie-title").textContent = "No movie ID specified.";
-    } else {
-      const apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
+    } 
+    else {
+      const apiUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&append_to_response=videos,recommendations,similar`;
       fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
@@ -317,9 +323,41 @@
           document.getElementById("play-button-main").addEventListener("click", function () {
             window.open(`https://v2.vidsrc.me/embed/${data.imdb_id}`, "_blank");
           });
+          const recommendedMovies = data.recommendations.results;
+          const recommendedMoviesList = document.getElementById("recommended-movies-list");
+          recommendedMovies.forEach(movie => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+              <div class="movie-card">
+                <a href="./movie-page-gpt.html?id=${movie.id}">
+                  <figure class="card-banner">
+                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} movie poster">
+                  </figure>
+                </a>
+                <div class="title-wrapper">
+                  <a href="./movie-details.html">
+                    <h3 class="card-title">${movie.title}</h3>
+                  </a>
+                  <time datetime="${movie.release_date}">${movie.release_date.substring(0, 4)}</time>
+                </div>
+                <div class="card-meta">
+                  <div class="badge badge-outline">${movie.vote_count}</div>
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+                    <time datetime="PT${movie.runtime}M">${movie.runtime} min</time>
+                  </div>
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <data>${movie.vote_average}</data>
+                  </div>
+                </div>
+              </div>
+            `;
+            recommendedMoviesList.appendChild(li);
+          });
         })
         .catch(error => console.error(error));
-    }
+        }
   </script>
 </body>
 </html>
