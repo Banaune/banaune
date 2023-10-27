@@ -20,7 +20,7 @@
       <div class="overlay" data-overlay></div>
 
       <a href="./index.html" class="logo">
-        <img src="./assets/images/logo.svg" alt="Filmlane logo">
+        <img src="./assets/images/logo.svg" alt="logo">
       </a>
 
       <div class="header-actions">
@@ -135,7 +135,6 @@
             </button>
           </figure>
           <div class="movie-detail-content">
-            <p class="detail-subtitle">New Episodes</p>
             <h1 class="h1 detail-title" id="movie-title"></h1>
             <div class="meta-wrapper">
               <div class="badge-wrapper">
@@ -146,11 +145,11 @@
               <div class="date-time">
                 <div>
                   <ion-icon name="calendar-outline"></ion-icon>
-                  <time datetime="2021" id="movie-release-year"></time>
+                  <time id="movie-release-year"></time>
                 </div>
                 <div>
                   <ion-icon name="time-outline"></ion-icon>
-                  <time datetime="PT115M" id="movie-duration"></time>
+                  <time id="movie-duration"></time>
                 </div>
               </div>
             </div>
@@ -161,10 +160,10 @@
                 <span>Share</span>
               </button>
               <div class="title-wrapper">
-                <p class="title">Prime Video</p>
-                <p class="text">Streaming Channels</p>
+                <p class="title">Watch Video</p>
+                <p class="text">Streaming Now</p>
               </div>
-              <button class="btn btn-primary">
+              <button class="btn btn-primary" id="play-button-main">
                 <ion-icon name="play"></ion-icon>
                 <span>Watch Now</span>
               </button>
@@ -307,7 +306,7 @@
       fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-          document.getElementById("movie-title").innerHTML = `Free <strong>${data.title}</strong>`;
+          document.getElementById("movie-title").innerHTML = `<strong>${data.title}</strong>`;
           document.getElementById("movie-certification").textContent = data.certification; // Replace with actual certification data.
           document.getElementById("movie-genres").textContent = data.genres.map(genre => genre.name).join(', ');
           document.getElementById("movie-release-year").textContent = data.release_date.substring(0, 4); // Extract year from release_date.
@@ -315,6 +314,9 @@
           document.getElementById("movie-overview").textContent = data.overview;
           document.getElementById("movie-poster").src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
           document.getElementById("play-button").addEventListener("click", function () {
+            window.open(`https://v2.vidsrc.me/embed/${data.imdb_id}`, "_blank");
+          });
+          document.getElementById("play-button-main").addEventListener("click", function () {
             window.open(`https://v2.vidsrc.me/embed/${data.imdb_id}`, "_blank");
           });
         })
