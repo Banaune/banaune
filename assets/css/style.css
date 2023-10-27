@@ -333,6 +333,16 @@ body.active { overflow: hidden; }
   color: var(--citrine);
 }
 
+.movie-recommendations .container {
+  margin-top:100px;
+}
+
+/* Add styles for the search results */
+.movie-search-results {
+  margin-top: 20px;
+}
+
+
 /**
  * CUSTOM SLIDER & SCROLLBAR
  */

@@ -13,7 +13,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
   <header class="header" data-header>
     <div class="container">
 
@@ -25,9 +24,10 @@
 
       <div class="header-actions">
 
-        <button class="search-btn">
-          <ion-icon name="search-outline"></ion-icon>
-        </button>
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder=" Search ..." oninput="searchMovies(this.value)">
+          <button id="search-button"></button>
+        </div>     
 
         <div class="lang-wrapper">
           <label for="language">
@@ -38,8 +38,6 @@
             <option value="en">EN</option>
           </select>
         </div>
-
-        <button class="btn btn-primary">Sign in</button>
 
       </div>
 
@@ -68,19 +66,15 @@
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Movie</a>
+            <a href="#" class="navbar-link">Movies</a>
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Tv Show</a>
+            <a href="#" class="navbar-link">Tv Shows</a>
           </li>
 
           <li>
             <a href="#" class="navbar-link">Web Series</a>
-          </li>
-
-          <li>
-            <a href="#" class="navbar-link">Pricing</a>
           </li>
 
         </ul>
@@ -124,10 +118,23 @@
     </div>
   </header>
 
+  <div id="search-results-container" class="search-results-container">
+    <section class="movie-search-results-details" id="search-results-section" style="display: none;">
+      <div class="container">
+        <h2 class="h2 section-title">Search Results</h2>
+        <ul class="movies-list" id="search-results">
+          <!-- Search results will be populated here dynamically -->
+        </ul>
+      </div>
+    </section>
+    <div id="overlay" class="overlay"></div>
+  </div>
+
   <main>
     <article>
+      <div class="container" id="movie-details-container">
       <section class="movie-detail">
-        <div class="container">
+        <div class="container" id="movie-details-container">
           <figure class="movie-detail-banner">
             <img src="" alt="Movie Poster" id="movie-poster">
             <button class="play-btn" id="play-button">
@@ -179,6 +186,7 @@
           </ul>
         </div>
       </section>
+      </div>
     </article>
   </main>
  <!-- 
@@ -329,7 +337,7 @@
             const li = document.createElement("li");
             li.innerHTML = `
               <div class="movie-card">
-                <a href="./movie-page-gpt.html?id=${movie.id}">
+                <a href="./movie-page.html?id=${movie.id}">
                   <figure class="card-banner">
                     <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} movie poster">
                   </figure>
@@ -355,5 +363,65 @@
         .catch(error => console.error(error));
         }
   </script>
+
+  <script>
+    // Add an event listener to the search button
+document.getElementById("search-button").addEventListener("click", () => {
+const searchInput = document.getElementById("search-input").value;
+searchMovies(searchInput);
+});
+
+function searchMovies(query) {
+  const API_KEY = "a074435ad948b2e6542c2bfc4cdab1d3";
+  const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`;
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const searchResultsSection = document.getElementById("search-results-section");
+      const searchResults = document.getElementById("search-results");
+      const movieDetailsContainer = document.getElementById("movie-details-container");
+
+      // Hide the movie details content
+      movieDetailsContainer.style.display = "none";
+
+      // Clear previous search results
+      searchResults.innerHTML = '';
+
+      const movies = data.results;
+      movies.forEach(movie => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <div class="movie-card">
+            <a href="./movie-page.html?id=${movie.id}">
+              <figure class="card-banner">
+                <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} movie poster">
+              </figure>
+            </a>
+            <div class="title-wrapper">
+              <a href="./movie-details.html">
+                <h3 class="card-title">${movie.title}</h3>
+              </a>
+              <time datetime="${movie.release_date}">${movie.release_date.substring(0, 4)}</time>
+            </div>
+            <div class="card-meta">
+              <div class="badge badge-outline">${movie.vote_count}</div>
+              <div class="rating">
+                <ion-icon name="star"></ion-icon>
+                <data>${movie.vote_average}</data>
+              </div>
+            </div>
+          </div>
+        `;
+        searchResults.appendChild(li);
+      });
+
+      // Show the search results section
+      searchResultsSection.style.display = "block";
+    })
+    .catch(error => console.error(error));
+}
+
+</script>  
 </body>
 </html>

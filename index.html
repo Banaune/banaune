@@ -1,179 +1,340 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Movie Search</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f0f0f0;
-      }
-      h1 {
-        text-align: center;
-        margin-top: 30px;
-        margin-bottom: 20px;
-      }
-      form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-      label {
-        font-size: 1.2em;
-        margin-right: 10px;
-      }
-      input[type="text"] {
-        font-size: 1.2em;
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
-      }
-      button[type="submit"] {
-        font-size: 1.2em;
-        padding: 10px 20px;
-        border-radius: 5px;
-        border: none;
-        background-color: #007bff;
-        color: #fff;
-        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-      }
-      button[type="submit"]:hover {
-        background-color: #0062cc;
-      }
-      #results {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 10px;
-        margin-bottom: 10px;
-      }
-
-      .movie {
-        width: auto;
-        margin: auto;
-        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        border-radius: 5px;
-        background-color: #fff;
-        transition: all 0.2s ease-in-out;
-      }
-
-      .movie:hover {
-        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
-        transform: translateY(-5px);
-      }
-      .movie img {
-        width: 100%;
-        height: auto;
-        /* object-fit: cover; */
-        transition: all 0.2s ease-in-out;
-          /* border: 5px solid #f30303; */
-        padding: 10px;
-        margin-bottom: 10px;
-      }
-      .movie:hover img {
-        opacity: 0.8;
-      }
-      .movie h2 {
-        font-size: 1.2em;
-        margin: 10px;
-      }
-      .movie a {
-        text-decoration: none;
-        color: inherit;
-      }
-      .movie-box {
-      width: 20%;
-      margin: 10px;
-      border: 1px solid black;
-      padding: 10px;
-    }
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movies in Hindi</title>
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header" data-header>
+        <div class="container">
     
-    .movie-title {
-      font-size: 18px;
-    }
+          <div class="overlay" data-overlay></div>
     
-    .movie-poster {
-      width: 100%;
-    }
-    #play-button  {
-        display: block;
-        width: 400px;
-        height: 50px;
-        background-color: #2aa203;
-        color: #fff;
-        border: none;
-        /* border-radius: 50%; */
-        font-size: 30px;
-        text-align: center;
-        line-height: 50px;
-        text-decoration: none;
-        margin-top: 10px;
-    }
-    </style>
-  
-  </head>
-  <body>
-    <h1>Movie Search</h1>
-    <form id="search-form">
-      <label for="search-field">Search for a movie:</label>
-      <input type="text" id="search-field" name="search-field">
-      <button type="submit">Search</button>
-    </form>
-    <div id="results"></div>
-    <script>
-      const API_KEY = "a074435ad948b2e6542c2bfc4cdab1d3"; // Replace with your own API key
-      
-      const searchForm = document.getElementById("search-form");
-      const searchField = document.getElementById("search-field");
-      const resultsDiv = document.getElementById("results");
-      
-      searchForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const searchTerm = searchField.value;
-        const apiUrl = `https://api.themoviedb.org/3/search/movie?query=${searchTerm}&api_key=${API_KEY}`;
-        fetch(apiUrl)
-          .then(response => response.json())
-          .then(data => {
-            resultsDiv.innerHTML = "";
-            data.results.forEach(movie => {
-              const movieDiv = document.createElement("div");
-              movieDiv.classList.add("movie");
-              const movieTitle = document.createElement("h2");
-              const movieLink = document.createElement("a");
-              movieLink.href = `https://www.themoviedb.org/movie/${movie.id}`;
-              movieLink.target = "_blank";
-              movieLink.rel = "noopener noreferrer";
-              movieLink.textContent = movie.title;
-              movieTitle.appendChild(movieLink);
-              const moviePoster = document.createElement("img");
-              const posterLink = document.createElement("a");
-              posterLink.href = `moviedetails.html?id=${movie.id}&poster=${movie.poster_path}`;
-              posterLink.target = "_blank";
-              posterLink.rel = "noopener noreferrer";
-              moviePoster.src = `https://image.tmdb.org/t/p/w185/${movie.poster_path}`;
-              posterLink.appendChild(moviePoster);
-              movieDiv.appendChild(movieTitle);
-              movieDiv.appendChild(posterLink);
-              resultsDiv.appendChild(movieDiv);
-            const PlayH1 = document.createElement("h2");
-            //   PlayH1.id="play-button-heading";
-              const PlayButton = document.createElement("a");
-                PlayButton.id="play-button";
-                PlayButton.href=`moviedetails.html?id=${movie.id}&poster=${movie.poster_path}`;
-                PlayButton.text="PLAY ▶▶▶"     
-                PlayH1.appendChild(PlayButton);
-                movieDiv.appendChild(PlayH1);
-            });
-          })
-          .catch(error => console.error(error));
+          <a href="./index.html" class="logo">
+            <img src="./assets/images/logo.svg" alt="logo">
+          </a>
+    
+          <div class="header-actions">
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder=" Search ..." oninput="searchMovies(this.value)">
+                <button id="search-button"></button>
+              </div>              
+                <!-- <ion-icon name="search-outline"></ion-icon> -->
+    
+            <div class="lang-wrapper">
+              <label for="language">
+                <ion-icon name="globe-outline"></ion-icon>
+              </label>
+    
+              <select name="language" id="language">
+                <option value="en">EN</option>
+              </select>
+            </div>
+        
+          </div>
+    
+          <button class="menu-open-btn" data-menu-open-btn>
+            <ion-icon name="reorder-two"></ion-icon>
+          </button>
+    
+          <nav class="navbar" data-navbar>
+    
+            <div class="navbar-top">
+    
+              <a href="./index.html" class="logo">
+                <img src="./assets/images/logo.svg" alt="logo">
+              </a>
+    
+              <button class="menu-close-btn" data-menu-close-btn>
+                <ion-icon name="close-outline"></ion-icon>
+              </button>
+    
+            </div>
+    
+            <ul class="navbar-list">
+    
+              <li>
+                <a href="./index.html" class="navbar-link">Home</a>
+              </li>
+    
+              <li>
+                <a href="#" class="navbar-link">Movies</a>
+              </li>
+    
+              <li>
+                <a href="#" class="navbar-link">Tv Shows</a>
+              </li>
+    
+              <li>
+                <a href="#" class="navbar-link">Web Series</a>
+              </li>
+
+    
+            </ul>
+    
+            <ul class="navbar-social-list">
+    
+              <li>
+                <a href="#" class="navbar-social-link">
+                  <ion-icon name="logo-twitter"></ion-icon>
+                </a>
+              </li>
+    
+              <li>
+                <a href="#" class="navbar-social-link">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </a>
+              </li>
+    
+              <li>
+                <a href="#" class="navbar-social-link">
+                  <ion-icon name="logo-pinterest"></ion-icon>
+                </a>
+              </li>
+    
+              <li>
+                <a href="#" class="navbar-social-link">
+                  <ion-icon name="logo-instagram"></ion-icon>
+                </a>
+              </li>
+    
+              <li>
+                <a href="#" class="navbar-social-link">
+                  <ion-icon name="logo-youtube"></ion-icon>
+                </a>
+              </li>
+    
+            </ul>
+    
+          </nav>
+    
+        </div>
+      </header>
+
+  <main>
+    <article>
+      <section class="movie-recommendations">
+        <div class="container" id="movie-recommendations-container">
+          <h2 class="h2 section-title">Movies in Hindi</h2>
+          <ul class="movies-list" id="movie-list">
+            <!-- Movie list will be populated here dynamically -->
+          </ul>
+        </div>
+      </section>
+    </article>
+  </main>
+  <footer class="footer">
+
+    <div class="footer-top">
+      <div class="container">
+
+        <div class="footer-brand-wrapper">
+
+          <a href="./index.html" class="logo">
+            <img src="./assets/images/logo.svg" alt="logo">
+          </a>
+
+          <ul class="footer-list">
+
+            <li>
+              <a href="./index.html" class="footer-link">Home</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Movies</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">TV Shows</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Web Series</a>
+            </li>
+
+
+          </ul>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="quicklink-wrapper">
+
+          <ul class="quicklink-list">
+
+            <li>
+              <a href="#" class="quicklink-link">FAQs</a>
+            </li>
+
+            <li>
+              <a href="#" class="quicklink-link">Help center</a>
+            </li>
+
+            <li>
+              <a href="#" class="quicklink-link">Terms of use</a>
+            </li>
+
+            <li>
+              <a href="#" class="quicklink-link">Privacy</a>
+            </li>
+
+          </ul>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-pinterest"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2022 <a href="#">Banaune</a>. All Rights Reserved
+        </p>
+
+        <!-- <img src="./assets/images/footer-bottom-img.png" alt="Online banking companies logo" class="footer-bottom-img"> -->
+
+      </div>
+    </div>
+  </footer>
+
+  <a href="#top" class="go-top" data-go-top>
+    <ion-icon name="chevron-up"></ion-icon>
+  </a>
+
+  <script src="./assets/js/script.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    const API_KEY = "122f0c50ae02fa84601c07025cb6d2f1";
+    const apiUrl = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&with_original_language=hi";
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        const movieList = document.getElementById("movie-list");
+        const movies = data.results;
+        movies.forEach(movie => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <div class="movie-card">
+              <a href="./movie-page.html?id=${movie.id}">
+                <figure class="card-banner">
+                  <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} movie poster">
+                </figure>
+              </a>
+              <div class="title-wrapper">
+                <a href="./movie-details.html">
+                  <h3 class="card-title">${movie.title}</h3>
+                </a>
+                <time datetime="${movie.release_date}">${movie.release_date.substring(0, 4)}</time>
+              </div>
+              <div class="card-meta">
+                <div class="badge badge-outline">${movie.vote_count}</div>
+                <div class="rating">
+                  <ion-icon name="star"></ion-icon>
+                  <data>${movie.vote_average}</data>
+                </div>
+              </div>
+            </div>
+          `;
+          movieList.appendChild(li);
+        });
+      })
+      .catch(error => console.error(error));
+  </script>
+
+  <script>
+        // Add an event listener to the search button
+    document.getElementById("search-button").addEventListener("click", () => {
+    const searchInput = document.getElementById("search-input").value;
+    searchMovies(searchInput);
+    });
+
+    function searchMovies(query) {
+  const API_KEY = "a074435ad948b2e6542c2bfc4cdab1d3";
+  const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`;
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const movieRecommendationsContainer = document.getElementById("movie-recommendations-container");
+      const movieList = document.getElementById("movie-list");
+
+      // Clear the existing movie recommendations
+      movieList.innerHTML = '';
+
+      const movies = data.results;
+      movies.forEach(movie => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <div class="movie-card">
+            <a href="./movie-page.html?id=${movie.id}">
+              <figure class="card-banner">
+                <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} movie poster">
+              </figure>
+            </a>
+            <div class="title-wrapper">
+              <a href="./movie-details.html">
+                <h3 class="card-title">${movie.title}</h3>
+              </a>
+              <time datetime="${movie.release_date}">${movie.release_date.substring(0, 4)}</time>
+            </div>
+            <div class="card-meta">
+              <div class="badge badge-outline">${movie.vote_count}</div>
+              <div class="rating">
+                <ion-icon name="star"></ion-icon>
+                <data>${movie.vote_average}</data>
+              </div>
+            </div>
+          </div>
+        `;
+        movieList.appendChild(li);
       });
-    </script>
-  </body>
+
+      // Show the "Movies in Hindi" section with the search results
+      movieRecommendationsContainer.style.display = "block";
+    })
+    .catch(error => console.error(error));
+}
+
+</script>  
+  
+</body>
 </html>
