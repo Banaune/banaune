@@ -155,10 +155,6 @@
             </div>
             <p class="storyline" id="movie-overview"></p>
             <div class="details-actions">
-              <button class="share">
-                <ion-icon name="share-social"></ion-icon>
-                <span>Share</span>
-              </button>
               <div class="title-wrapper">
                 <p class="title">Watch Video</p>
                 <p class="text">Streaming Now</p>
@@ -168,10 +164,10 @@
                 <span>Watch Now</span>
               </button>
             </div>
-            <a href="#" download class="download-btn">
+            <!-- <a href="#" download class="download-btn">
               <span>Download</span>
               <ion-icon name="download-outline"></ion-icon>
-            </a>
+            </a> -->
           </div>
         </div>
       </section>
@@ -313,6 +309,8 @@
           document.getElementById("movie-duration").textContent = `${data.runtime} min`;
           document.getElementById("movie-overview").textContent = data.overview;
           document.getElementById("movie-poster").src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+          // Add this code to dynamically change the page title
+          document.title = `${data.title} - Movie Details`; 
           document.getElementById("play-button").addEventListener("click", function () {
             window.open(`https://v2.vidsrc.me/embed/${data.imdb_id}`, "_blank");
           });
