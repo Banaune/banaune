@@ -324,9 +324,14 @@
           document.getElementById("play-button").addEventListener("click", function () {
             window.open(`https://v2.vidsrc.me/embed/${data.imdb_id}`, "_blank");
           });
+          const imdbId = data.imdb_id;
+          if (imdbId) {
           document.getElementById("play-button-main").addEventListener("click", function () {
             window.open(`https://v2.vidsrc.me/embed/${data.imdb_id}`, "_blank");
           });
+        }else{
+          document.getElementById("play-button-main").textContent = "No links Found";
+        }
           const recommendedMovies = data.recommendations.results;
           const recommendedMoviesList = document.getElementById("recommended-movies-list");
           recommendedMovies.forEach(movie => {
