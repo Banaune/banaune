@@ -22,13 +22,11 @@
         <img src="./assets/images/logo.svg" alt="logo">
       </a>
 
-      <div class="header-actions">
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder=" Search ..." oninput="searchMovies(this.value)">
+      </div> 
 
-        <div class="search-bar">
-          <input type="text" id="search-input" placeholder=" Search ..." oninput="searchMovies(this.value)">
-          <button id="search-button"></button>
-        </div>     
-
+      <div class="header-actions"> 
         <div class="lang-wrapper">
           <label for="language">
             <ion-icon name="globe-outline"></ion-icon>
@@ -118,7 +116,6 @@
     </div>
   </header>
 
-  <div id="search-results-container" class="search-results-container">
     <section class="movie-search-results-details" id="search-results-section" style="display: none;">
       <div class="container">
         <h2 class="h2 section-title">Search Results</h2>
@@ -127,8 +124,7 @@
         </ul>
       </div>
     </section>
-    <div id="overlay" class="overlay"></div>
-  </div>
+    <!-- <div id="overlay" class="overlay"></div> -->
 
   <main>
     <article>
@@ -399,7 +395,7 @@ function searchMovies(query) {
               </figure>
             </a>
             <div class="title-wrapper">
-              <a href="./movie-details.html">
+              <a href="./movie-page.html?id=${movie.id}">
                 <h3 class="card-title">${movie.title}</h3>
               </a>
               <time datetime="${movie.release_date}">${movie.release_date.substring(0, 4)}</time>

@@ -337,11 +337,49 @@ body.active { overflow: hidden; }
   margin-top:100px;
 }
 
-/* Add styles for the search results */
+/* Add styles for the search results in index page */
 .movie-search-results {
   margin-top: 20px;
 }
 
+#search-results-section {
+  display: none; /* Initially hide the section */
+  margin-top: 100px; /* Adjust this value to leave space for your header */
+  transition: var(--transition-2);
+}
+
+#search-results-section.active {
+  display: block; /* Show the section when it's active */
+}
+
+
+/* #search-results-section.active {
+  display: block; /* Show the section when it's active */
+} */
+
+
+
+/* Search Bar Container */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  padding: 1px;
+  margin: 10px;
+}
+
+/* Search Input */
+#search-input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+/* Placeholder Text Color */
+#search-input::placeholder {
+  color: #999; /* Adjust the color to your liking */
+}
 
 /**
  * CUSTOM SLIDER & SCROLLBAR
