@@ -253,7 +253,7 @@
           const li = document.createElement("li");
           li.innerHTML = `
             <div class="movie-card">
-              <a href="./movie-page.html?id=${movie.id}">
+              <a href="./tv-page.html?id=${movie.id}">
                 <figure class="card-banner">
                   <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} movie poster">
                 </figure>
@@ -305,7 +305,7 @@
               </figure>
             </a>
             <div class="title-wrapper">
-              <a href="./movie-page.html?id=${movie.id}">
+              <a href="./tv-page.html?id=${movie.id}">
                 <h3 class="card-title">${movie.name}</h3>
               <time datetime="${movie.first_air_date}">${movie.first_air_date.substring(0, 4)}</time>
               </a>
