@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Details</title>
+
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header" data-header>
+    <div class="container">
+
+      <div class="overlay" data-overlay></div>
+
+      <a href="./index.html" class="logo">
+        <img src="./assets/images/logo.svg" alt="logo">
+      </a>
+
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder=" Search ..." oninput="searchMovies(this.value)">
+      </div> 
+
+      <div class="header-actions"> 
+        <div class="lang-wrapper">
+          <label for="language">
+            <ion-icon name="globe-outline"></ion-icon>
+          </label>
+
+          <select name="language" id="language">
+            <option value="en">EN</option>
+          </select>
+        </div>
+
+      </div>
+
+      <button class="menu-open-btn" data-menu-open-btn>
+        <ion-icon name="reorder-two"></ion-icon>
+      </button>
+
+      <nav class="navbar" data-navbar>
+
+        <div class="navbar-top">
+
+          <a href="./index.html" class="logo">
+            <img src="./assets/images/logo.svg" alt="logo">
+          </a>
+
+          <button class="menu-close-btn" data-menu-close-btn>
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+
+        </div>
+
+        <ul class="navbar-list">
+
+          <li>
+            <a href="./index.html" class="navbar-link">Home</a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-link">Movies</a>
+          </li>
+
+          <li>
+            <a href="./tv.html" class="navbar-link">TV Shows</a>
+        </li>
+
+          <li>
+            <a href="/banaune/old-index.html" class="navbar-link">Old Site</a>
+          </li>
+
+        </ul>
+
+        <ul class="navbar-social-list">
+
+          <li>
+            <a href="#" class="navbar-social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-social-link">
+              <ion-icon name="logo-pinterest"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-social-link">
+              <ion-icon name="logo-youtube"></ion-icon>
+            </a>
+          </li>
+
+        </ul>
+
+      </nav>
+
+    </div>
+  </header>
+
+    <section class="movie-search-results-details" id="search-results-section" style="display: none;">
+      <div class="container">
+        <h2 class="h2 section-title">Search Results</h2>
+        <ul class="movies-list" id="search-results">
+          <!-- Search results will be populated here dynamically -->
+        </ul>
+      </div>
+    </section>
+    <!-- <div id="overlay" class="overlay"></div> -->
+
+  <main>
+    <article>
+      <div class="container" id="movie-details-container">
+      <section class="movie-detail">
+        <div class="container" id="movie-details-container">
+          <figure class="movie-detail-banner">
+            <img src="" alt="Movie Poster" id="movie-poster">
+            <button class="play-btn" id="play-button">
+              <ion-icon name="play-circle-outline"></ion-icon>
+            </button>
+          </figure>
+          <div class="movie-detail-content">
+            <h1 class="h1 detail-title" id="movie-title"></h1>
+            <div class="meta-wrapper">
+              <div class="badge-wrapper">
+                <div class="badge badge-fill" id="movie-certification"></div>
+                <div class="badge badge-outline">HD</div>
+              </div>
+              <div class="genre-wrapper" id="movie-genres"></div>
+              <div class="date-time">
+                <div>
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  <time id="movie-release-year"></time>
+                </div>
+                <div>
+                  <ion-icon name="time-outline"></ion-icon>
+                  <time id="movie-duration"></time>
+                </div>
+              </div>
+            </div>
+            <p class="storyline" id="movie-overview"></p>
+            <div class="details-actions">
+              <div class="title-wrapper">
+                <p class="title">Watch Video</p>
+                <p class="text">Streaming Now</p>
+              </div>
+              <button class="btn btn-primary" id="play-button-main">
+                <ion-icon name="play"></ion-icon>
+                <span>Watch Now</span>
+              </button>
+            </div>
+            <!-- <a href="#" download class="download-btn">
+              <span>Download</span>
+              <ion-icon name="download-outline"></ion-icon>
+            </a> -->
+          </div>
+        </div>
+      </section>
+      <section class="movie-recommendations">
+        <div class="container">
+          <h2 class="h2 section-title">Recommended Series</h2>
+          <ul class="movies-list" id="recommended-movies-list">
+            <!-- Recommendations will be populated here dynamically -->
+          </ul>
+        </div>
+      </section>
+      </div>
+    </article>
+  </main>
+ <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer">
+
+    <div class="footer-top">
+      <div class="container">
+
+        <div class="footer-brand-wrapper">
+
+          <a href="./index.html" class="logo">
+            <img src="./assets/images/logo.svg" alt="logo">
+          </a>
+
+          <ul class="footer-list">
+
+            <li>
+              <a href="./index.html" class="footer-link">Home</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Movies</a>
+            </li>
+
+            <li>
+              <a href="./tv.html" class="footer-link">TV Shows</a>
+            </li>
+
+            <li>
+              <a href="/banaune/old-index.html" class="footer-link">Old Site</a>
+            </li>
+
+
+          </ul>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="quicklink-wrapper">
+
+          <ul class="quicklink-list">
+
+            <li>
+              <a href="#" class="quicklink-link">FAQs</a>
+            </li>
+
+            <li>
+              <a href="#" class="quicklink-link">Help center</a>
+            </li>
+
+            <li>
+              <a href="#" class="quicklink-link">Terms of use</a>
+            </li>
+
+            <li>
+              <a href="#" class="quicklink-link">Privacy</a>
+            </li>
+
+          </ul>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-pinterest"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2022 <a href="#">Banaune</a>. All Rights Reserved
+        </p>
+
+        <!-- <img src="./assets/images/footer-bottom-img.png" alt="Online banking companies logo" class="footer-bottom-img"> -->
+
+      </div>
+    </div>
+  </footer>
+
+  <a href="#top" class="go-top" data-go-top>
+    <ion-icon name="chevron-up"></ion-icon>
+  </a>
+
+  <script src="./assets/js/script.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    const API_KEY = "a074435ad948b2e6542c2bfc4cdab1d3";
+    const urlParams = new URLSearchParams(window.location.search);
+    const movieId = urlParams.get('id');
+    if (!movieId) {
+      document.getElementById("movie-title").textContent = "No movie ID specified.";
+    } 
+    else {
+      const apiUrl = `https://api.themoviedb.org/3/tv/${movieId}?api_key=${API_KEY}&append_to_response=videos,recommendations,similar`;
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("movie-title").innerHTML = `<strong>${data.name}</strong>`;
+          document.getElementById("movie-certification").textContent = data.certification; // Replace with actual certification data.
+          document.getElementById("movie-genres").textContent = data.genres.map(genre => genre.name).join(', ');
+          document.getElementById("movie-release-year").textContent = data.first_air_date.substring(0, 4); // Extract year from release_date.
+          document.getElementById("movie-duration").textContent = `45 min`;
+          document.getElementById("movie-overview").textContent = data.overview;
+          document.getElementById("movie-poster").src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+          // Add this code to dynamically change the page title
+          document.title = `${data.name} - Movie Details`; 
+          document.getElementById("play-button").addEventListener("click", function () {
+            window.open(`https://v2.vidsrc.me/embed/${data.id}`, "_blank");
+          });
+          const imdbId = data.id;
+          if (imdbId) {
+          document.getElementById("play-button-main").addEventListener("click", function () {
+            window.open(`https://v2.vidsrc.me/embed/${data.id}`, "_blank");
+          });
+        }else{
+          document.getElementById("play-button-main").textContent = "No links Found";
+        }
+          const recommendedMovies = data.recommendations.results;
+          const recommendedMoviesList = document.getElementById("recommended-movies-list");
+          recommendedMovies.forEach(movie => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+              <div class="movie-card">
+                <a href="./tv-page.html?id=${movie.id}">
+                  <figure class="card-banner">
+                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.name} movie poster">
+                  </figure>
+                </a>
+                <div class="title-wrapper">
+                  <a href="./tv-page.html?id=${movie.id}">
+                    <h3 class="card-title">${movie.name}</h3>
+                  </a>
+                  <time datetime="${movie.first_air_date}">${movie.first_air_date.substring(0, 4)}</time>
+                </div>
+                <div class="card-meta">
+                  <div class="badge badge-outline">${movie.vote_count}</div>
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+                    <data>${movie.vote_average}</data>
+                  </div>
+                </div>
+              </div>
+            `;
+            recommendedMoviesList.appendChild(li);
+          });
+        })
+        .catch(error => console.error(error));
+        }
+  </script>
+
+  <script>
+    // Add an event listener to the search button
+document.getElementById("search-button").addEventListener("click", () => {
+const searchInput = document.getElementById("search-input").value;
+searchMovies(searchInput);
+});
+
+function searchMovies(query) {
+  const API_KEY = "a074435ad948b2e6542c2bfc4cdab1d3";
+  const apiUrl = `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${query}`;
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      const searchResultsSection = document.getElementById("search-results-section");
+      const searchResults = document.getElementById("search-results");
+      const movieDetailsContainer = document.getElementById("movie-details-container");
+
+      // Hide the movie details content
+      movieDetailsContainer.style.display = "none";
+
+      // Clear previous search results
+      searchResults.innerHTML = '';
+
+      const movies = data.results;
+      movies.forEach(movie => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <div class="movie-card">
+            <a href="./tv-page.html?id=${movie.id}">
+              <figure class="card-banner">
+                <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} movie poster">
+              </figure>
+            </a>
+            <div class="title-wrapper">
+              <a href="./tv-page.html?id=${movie.id}">
+                <h3 class="card-title">${movie.title}</h3>
+              </a>
+              <time datetime="${movie.release_date}">${movie.release_date.substring(0, 4)}</time>
+            </div>
+            <div class="card-meta">
+              <div class="badge badge-outline">${movie.vote_count}</div>
+              <div class="rating">
+                <ion-icon name="star"></ion-icon>
+                <data>${movie.vote_average}</data>
+              </div>
+            </div>
+          </div>
+        `;
+        searchResults.appendChild(li);
+      });
+
+      // Show the search results section
+      searchResultsSection.style.display = "block";
+    })
+    .catch(error => console.error(error));
+}
+
+</script>  
+</body>
+</html>
