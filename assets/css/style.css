@@ -149,7 +149,10 @@ body.active { overflow: hidden; }
   text-align: center;
 }
 
-.section-title { text-align: center; }
+.section-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
 /**
  * BADGE
