@@ -335,6 +335,11 @@
         const pageNumberDiv = document.createElement('div');
         pageNumberDiv.classList.add('page-number');
         pageNumberDiv.textContent = i;
+        // Add a class to the current page number
+        if (i === currentPage) {
+          pageNumberDiv.classList.add('current-page');
+        }
+        
         pageNumberDiv.addEventListener('click', () => {
           currentPage = i;
           fetchMovies();
