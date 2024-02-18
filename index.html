@@ -131,7 +131,7 @@
       </section>
     </article>
   </main>
-  
+
   <!-- <div class="pagination-buttons">
     <button id="prevPage">Previous</button>
     <button id="nextPage">Next</button>
@@ -305,50 +305,55 @@
   <script>
     let totalPages = 100; // This should be dynamically set based on your data
 
-function renderPageNumbers() {
-  const pageNumbersDiv = document.getElementById('pageNumbers');
-  pageNumbersDiv.innerHTML = ''; // Clear the existing page numbers
+    function renderPageNumbers() {
+      const pageNumbersDiv = document.getElementById('pageNumbers');
+      pageNumbersDiv.innerHTML = ''; // Clear the existing page numbers
 
-  let startPage = Math.max(currentPage - 2, 1);
-  let endPage = Math.min(currentPage + 2, totalPages);
+      let startPage = Math.max(currentPage - 2, 1);
+      let endPage = Math.min(currentPage + 2, totalPages);
 
-  if (currentPage <= 3) {
-    endPage = Math.min(5, totalPages);
-  }
+      if (currentPage <= 3) {
+        endPage = Math.min(5, totalPages);
+      }
 
-  if (currentPage >= totalPages - 2) {
-    startPage = Math.max(totalPages - 4, 1);
-  }
+      if (currentPage >= totalPages - 2) {
+        startPage = Math.max(totalPages - 4, 1);
+      }
 
-  for (let i = startPage; i <= endPage; i++) {
-    const pageNumberDiv = document.createElement('div');
-    pageNumberDiv.classList.add('page-number');
-    pageNumberDiv.textContent = i;
-    pageNumberDiv.addEventListener('click', () => {
-      currentPage = i;
-      fetchMovies();
-    });
-    pageNumbersDiv.appendChild(pageNumberDiv);
-  }
+      for (let i = startPage; i <= endPage; i++) {
+        const pageNumberDiv = document.createElement('div');
+        pageNumberDiv.classList.add('page-number');
+        pageNumberDiv.textContent = i;
+        pageNumberDiv.addEventListener('click', () => {
+          currentPage = i;
+          fetchMovies();
+          renderPageNumbers();
+        });
+        pageNumbersDiv.appendChild(pageNumberDiv);
+      }
 
-  if (endPage < totalPages) {
-    const ellipsisDiv = document.createElement('div');
-    ellipsisDiv.textContent = '...';
-    pageNumbersDiv.appendChild(ellipsisDiv);
-  }
-}
+      if (endPage < totalPages) {
+        const ellipsisDiv = document.createElement('div');
+        ellipsisDiv.textContent = '...';
+        pageNumbersDiv.appendChild(ellipsisDiv);
+      }
+    }
     document.getElementById('prevPage').addEventListener('click', () => {
       if (currentPage > 1) {
         currentPage--;
         fetchMovies();
+        renderPageNumbers();
+
       }
     });
 
     document.getElementById('nextPage').addEventListener('click', () => {
       currentPage++;
       fetchMovies();
+      renderPageNumbers();
     });
     renderPageNumbers();
+
   </script>
 
 
