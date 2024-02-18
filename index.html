@@ -307,7 +307,18 @@
 
     function renderPageNumbers() {
       const pageNumbersDiv = document.getElementById('pageNumbers');
+      const prevPageButton = document.getElementById('prevPage');
       pageNumbersDiv.innerHTML = ''; // Clear the existing page numbers
+
+      // Disable the "Previous" button if on the first page
+      if (currentPage === 1) {
+        prevPageButton.style.pointerEvents = 'none';
+        prevPageButton.style.opacity = 0.5;
+      }
+      else {
+        prevPageButton.style.pointerEvents = 'auto';
+        prevPageButton.style.opacity = 1;
+      }
 
       let startPage = Math.max(currentPage - 2, 1);
       let endPage = Math.min(currentPage + 2, totalPages);
