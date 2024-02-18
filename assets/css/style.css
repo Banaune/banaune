@@ -1679,4 +1679,6 @@ body.active { overflow: hidden; }
 .page-number.current-page {
   color: var(--citrine);
   font-weight: bold ;
+  cursor: default; /* Change the cursor to the default cursor */
+  pointer-events: none; /* Prevent all click events */
 }
