@@ -356,9 +356,9 @@ body.active { overflow: hidden; }
 }
 
 
-/* #search-results-section.active {
-  display: block; /* Show the section when it's active */
-} */
+/* #search-results-section.active { */
+  /* display: block; Show the section when it's active */
+/* } */
 
 
 
@@ -1636,4 +1636,42 @@ body.active { overflow: hidden; }
     transform: rotate(-0.25turn);
   }
 
+}
+
+/* .pagination-buttons {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pagination-buttons button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-buttons button:hover {
+  background-color: #0056b3;
+} */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 10px;
+}
+
+.page-number {
+  cursor: pointer;
 }
