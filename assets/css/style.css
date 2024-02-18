@@ -1675,3 +1675,8 @@ body.active { overflow: hidden; }
 #prevPage:hover, #nextPage:hover {
   background-color: #444; /* Darker background on hover */
 }
+
+.page-number.current-page {
+  color: var(--citrine);
+  font-weight: bold ;
+}
