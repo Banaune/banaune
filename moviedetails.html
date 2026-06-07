@@ -90,14 +90,14 @@ h1 {
             const moviePoster = document.createElement("img");
             moviePoster.src = posterUrl;
             const posterLink = document.createElement("a");
-            posterLink.href = `https://v2.vidsrc.me/embed/${imdbid}`;
+            posterLink.href = `https://vidsrcme.su/embed/${imdbid}`;
             posterLink.target = "_blank";
             posterLink.rel = "noopener noreferrer";
             posterLink.appendChild(moviePoster);
             document.getElementById("movie-poster").appendChild(posterLink);
             const PlayButton = document.createElement("a");
             PlayButton.id="play-button";
-            PlayButton.href=`https://v2.vidsrc.me/embed/${imdbid}`;
+            PlayButton.href=`https://vidsrcme.su/embed/${imdbid}`;
             PlayButton.text="PLAY ▶▶▶"     
             document.getElementById("movie-poster").appendChild(PlayButton);
 
